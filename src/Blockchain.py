@@ -21,6 +21,7 @@ class Blockchain:
         if new_block.prev_hash == self.get_previous_hash() \
                 and new_block.block_number == self.get_previous_block_number() + 1 \
                 and new_block.verify():
+            print('Added New Block:', new_block.block_number)
             self.blocks.append(new_block)
             return True
         return False

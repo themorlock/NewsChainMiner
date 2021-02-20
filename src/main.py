@@ -24,16 +24,12 @@ def get_latest_blockchain():
                                                   + '/get_blockchain').text)
         except:
             continue
+    return Blockchain.Blockchain()
 
 
 if __name__ == '__main__':
-    peer_addresses = requests.get('http://35.225.55.196:5000/get_peer_addresses?n=2').json()
-    if len(peer_addresses) == 0:
-        chain = Blockchain.Blockchain()
-    else:
-        chain = get_latest_blockchain()
-
-    #chain = Blockchain.Blockchain()
+    peer_addresses = requests.get('http://35.225.55.196:5000/get_peer_addresses?n=16').json()
+    chain = get_latest_blockchain()
 
     handler_thread = threading.Thread(target=Handler.handler_loop())
     miner_thread = threading.Thread(target=Miner.miner_loop())
