@@ -1,9 +1,9 @@
 import socket
 import jsonpickle
 import requests
-from src import Block
-from src import Blockchain
-from src import main
+import Block
+import Blockchain
+import main
 
 
 def broadcast_new_block(new_block):

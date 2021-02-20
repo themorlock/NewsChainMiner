@@ -1,5 +1,5 @@
-from src import Article
-from src import Block
+import Article
+import Block
 
 
 class Blockchain:

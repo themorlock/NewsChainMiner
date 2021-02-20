@@ -3,11 +3,11 @@ import hashlib
 import requests
 import threading
 import jsonpickle
-from src import Article
-from src import Block
-from src import Blockchain
-from src import Handler
-from src import Miner
+import Article
+import Block
+import Blockchain
+import Handler
+import Miner
 
 PORT = 5000
 
