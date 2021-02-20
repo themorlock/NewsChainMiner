@@ -1,3 +1,4 @@
+import random
 import hashlib
 
 LEADING_MASK = "000000"
@@ -8,7 +9,7 @@ class Block:
         self.prev_hash = prev_hash
         self.block_number = block_number
         self.articles = articles
-        self.nonce = -1
+        self.nonce = random.randint(0, 1048576)
 
     def get_articles_string(self):
         articles_string = ""
