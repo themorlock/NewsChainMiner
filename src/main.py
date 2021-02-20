@@ -11,7 +11,7 @@ import Blockchain
 
 PORT = 5000
 
-NUM_ARTICLES_PER_BLOCK = 1
+NUM_ARTICLES_PER_BLOCK = 4
 stop_mining_flag = False
 chain = Blockchain.Blockchain()
 peer_addresses = []
@@ -104,15 +104,16 @@ def get_latest_blockchain():
 
 
 if __name__ == '__main__':
-    '''
+    
     key_pair = RSA.generate(bits=1024)
 
     msg1 = "abc"
     signature = pow(int.from_bytes(hashlib.sha512(str.encode(msg1)).digest(), byteorder='big'), key_pair.d, key_pair.n)
     a1 = Article.Article(msg1, signature, key_pair.e, key_pair.n)
     #print(a1.verify())
-    requests.post('http://' + '34.66.161.128' + ':' + str(PORT)
+    requests.post('http://' + '104.197.231.75' + ':' + str(PORT)
                   + '/new_article', data=jsonpickle.encode(a1))
+    
     '''
     peer_addresses = requests.get('http://35.225.55.196:5000/get_peer_addresses?n=16').json()
     chain = get_latest_blockchain()
@@ -123,6 +124,7 @@ if __name__ == '__main__':
     handler_thread.start()
     miner_thread.join()
     handler_thread.join()
+    '''
     '''
     key_pair = RSA.generate(bits=1024)
 

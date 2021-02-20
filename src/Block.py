@@ -1,6 +1,6 @@
 import hashlib
 
-LEADING_MASK = "0"
+LEADING_MASK = "000000"
 
 
 class Block:
