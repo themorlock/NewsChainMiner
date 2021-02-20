@@ -26,6 +26,9 @@ def new_article():
     json_dict.update({"py/object":"Article.Article"})
     article = jsonpickle.loads(json.dumps(json_dict))
     #article = jsonpickle.decode(flask.request.data.decode("utf-8"), classes=Article.Article)
+    for current_article in current_articles:
+        if article.get_hash() == current_article.get_hash():
+            return 'Recieved'
     if article.verify():
         current_articles.append(article)
         for peer_address in peer_addresses:
