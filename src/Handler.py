@@ -32,4 +32,4 @@ def get_blockchain():
 
 
 def handler_loop():
-    app.run()
+    app.run(host='0.0.0.0')
