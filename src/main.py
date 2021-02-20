@@ -28,6 +28,7 @@ def get_latest_blockchain():
 
 
 if __name__ == '__main__':
+    '''
     key_pair = RSA.generate(bits=1024)
 
     msg1 = "abc"
@@ -44,7 +45,6 @@ if __name__ == '__main__':
     miner_thread = threading.Thread(target=Miner.miner_loop())
     handler_thread.start()
     miner_thread.start()
-    '''
     '''
 
     key_pair = RSA.generate(bits=1024)
