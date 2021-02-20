@@ -80,6 +80,7 @@ def miner_loop():
                 if stop_mining_flag:
                    break 
             if stop_mining_flag:
+                del current_articles[:NUM_ARTICLES_PER_BLOCK]
                 stop_mining_flag = False
                 continue
             chain.add_block(new_block)
@@ -100,7 +101,6 @@ def get_latest_blockchain():
 
 
 if __name__ == '__main__':
-
     key_pair = RSA.generate(bits=1024)
 
     msg1 = "abc"
