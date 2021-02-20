@@ -19,8 +19,6 @@ def new_article():
 @app.route('/new_block', methods=['POST'])
 def new_block():
     block = jsonpickle.decode(flask.request.data)
-    #block = jsonpickle.decode(flask.request.args('data'))
-    #print(jsonpickle.decode(block))
     if main.chain.add_block(block):
         main.stop_mining_flag = True
         for peer_address in main.peer_addresses:
