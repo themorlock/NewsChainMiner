@@ -44,7 +44,7 @@ def new_block():
         for article in block.articles:
             for curr_article in current_articles:
                 if article.get_hash() == curr_article.get_hash():
-                    curr_articles.remove(curr_article)
+                    current_articles.remove(curr_article)
         stop_mining_flag = True
         for peer_address in peer_addresses:
             requests.post('http://' + peer_address + ':' + str(PORT)
