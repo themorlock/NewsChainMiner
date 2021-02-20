@@ -70,7 +70,6 @@ def miner_loop():
     global stop_mining_flag
     print('Starting miner loop')
     while True:
-        print('a')
         if len(current_articles) >= NUM_ARTICLES_PER_BLOCK:
             articles_for_block = current_articles[:NUM_ARTICLES_PER_BLOCK]
             new_block = Block.Block(chain.get_previous_hash(),
@@ -106,6 +105,7 @@ if __name__ == '__main__':
     handler_thread = threading.Thread(target=handler_loop, daemon=True)
     miner_thread.start()
     handler_thread.start()
+    miner_thread.join()
     handler_thread.join()
     '''
     key_pair = RSA.generate(bits=1024)
