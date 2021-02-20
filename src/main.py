@@ -41,6 +41,10 @@ def new_block():
     block = jsonpickle.loads(json.dumps(json_dict))
     #block = jsonpickle.decode(flask.request.data.decode("utf-8"), classes=Block.Block)
     if chain.add_block(block):
+        for article in block.articles:
+            for curr_article in current_articles:
+                if article.get_hash() == curr_article.get_hash():
+                    curr_articles.remove(curr_article)
         stop_mining_flag = True
         for peer_address in peer_addresses:
             requests.post('http://' + peer_address + ':' + str(PORT)
@@ -80,7 +84,6 @@ def miner_loop():
                 if stop_mining_flag:
                    break 
             if stop_mining_flag:
-                del current_articles[:NUM_ARTICLES_PER_BLOCK]
                 stop_mining_flag = False
                 continue
             chain.add_block(new_block)
