@@ -4,6 +4,7 @@ import json
 import flask
 import requests
 import threading
+import time
 import jsonpickle
 import Article
 import Block
@@ -94,6 +95,17 @@ def miner_loop():
             del current_articles[:NUM_ARTICLES_PER_BLOCK]
 
 
+def get_peer_addresses():
+    global peer_addresses
+    peer_addresses = requests.get('http://35.225.55.196:5000/get_peer_addresses').json()
+
+
+def get_peer_addresses_loop():
+    while True:
+        time.sleep(60)
+        get_peer_addresses()
+
+
 def get_latest_blockchain():
     for peer_address in peer_addresses:
         try:
@@ -107,12 +119,14 @@ def get_latest_blockchain():
 
 
 if __name__ == '__main__':
-    peer_addresses = requests.get('http://35.225.55.196:5000/get_peer_addresses?n=16').json()
+    get_peer_addresses()
     chain = get_latest_blockchain()
-
     miner_thread = threading.Thread(target=miner_loop, daemon=True)
     handler_thread = threading.Thread(target=handler_loop, daemon=True)
+    get_peer_addresses_thread = threading.Thread(target=get_peer_addresses_loop, daemon=True)
     miner_thread.start()
     handler_thread.start()
+    get_peer_addresses_thread.start()
     miner_thread.join()
     handler_thread.join()
+    get_peer_addresses_thread.join()
