@@ -56,22 +56,21 @@ def get_blockchain():
 def handler_loop():
     app.run(host='0.0.0.0')
 
+
 def broadcast_new_block(new_block):
     global peer_addresses
     for peer_address in peer_addresses:
         requests.post('http://' + peer_address + ':' + str(PORT)
                       + '/new_block', data=jsonpickle.encode(new_block))
-        '''
-        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        s.sendto(jsonpickle.encode(new_block), (peer_address, PORT))
-        '''
 
 
 def miner_loop():
     global chain
     global NUM_ARTICLES_PER_BLOCK
     global stop_mining_flag
+    print('Starting miner loop')
     while True:
+        print('a')
         if len(current_articles) >= NUM_ARTICLES_PER_BLOCK:
             articles_for_block = current_articles[:NUM_ARTICLES_PER_BLOCK]
             new_block = Block.Block(chain.get_previous_hash(),
@@ -103,10 +102,11 @@ if __name__ == '__main__':
     peer_addresses = requests.get('http://35.225.55.196:5000/get_peer_addresses?n=16').json()
     chain = get_latest_blockchain()
 
-    handler_thread = threading.Thread(target=handler_loop())
-    miner_thread = threading.Thread(target=miner_loop())
-    handler_thread.start()
+    miner_thread = threading.Thread(target=miner_loop, daemon=True)
+    handler_thread = threading.Thread(target=handler_loop, daemon=True)
     miner_thread.start()
+    handler_thread.start()
+    handler_thread.join()
     '''
     key_pair = RSA.generate(bits=1024)
 
