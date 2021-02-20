@@ -12,24 +12,26 @@ from src import Miner
 PORT = 5000
 
 stop_mining_flag = False
-chain = Blockchain.Blockchain()
+chain = 0
 peer_addresses = []
 current_articles = []
 
 
 def get_latest_blockchain():
-    return Blockchain.Blockchain()
+    for peer_address in peer_addresses:
+        try:
+            return jsonpickle.encode(requests.get('http://' + peer_addresses[0] + ':' + str(PORT)
+                                                  + '/get_blockchain').text)
+        except:
+            continue
 
 
 if __name__ == '__main__':
-
-    '''
-    peer_addresses = requests.get('http://127.0.0.1:5000/get_peer_addresses?n=2').json()
+    peer_addresses = requests.get('http://35.225.55.196:5000/get_peer_addresses?n=2').json()
     if len(peer_addresses) == 0:
         chain = Blockchain.Blockchain()
     else:
         chain = get_latest_blockchain()
-    '''
 
     #chain = Blockchain.Blockchain()
 
