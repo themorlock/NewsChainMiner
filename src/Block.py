@@ -2,7 +2,7 @@ import hashlib
 
 
 NUM_ARTICLES_PER_BLOCK = 1
-LEADING_MASK = "00000"
+LEADING_MASK = "0"
 
 
 class Block:
