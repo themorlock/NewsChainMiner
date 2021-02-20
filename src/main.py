@@ -57,6 +57,7 @@ def handler_loop():
     app.run(host='0.0.0.0')
 
 def broadcast_new_block(new_block):
+    global peer_addresses
     for peer_address in peer_addresses:
         requests.post('http://' + peer_address + ':' + str(PORT)
                       + '/new_block', data=jsonpickle.encode(new_block))
@@ -67,6 +68,7 @@ def broadcast_new_block(new_block):
 
 
 def miner_loop():
+    global chain
     global NUM_ARTICLES_PER_BLOCK
     global stop_mining_flag
     while True:
@@ -78,13 +80,13 @@ def miner_loop():
             while not mined:
                 mined = new_block.try_new_nonce()
                 if stop_mining_flag:
-                    break
+                   break 
             if stop_mining_flag:
                 stop_mining_flag = False
                 continue
             chain.add_block(new_block)
             broadcast_new_block(new_block)
-            del current_articles[:Block.NUM_ARTICLES_PER_BLOCK]
+            del current_articles[:NUM_ARTICLES_PER_BLOCK]
 
 
 def get_latest_blockchain():
