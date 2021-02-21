@@ -1,7 +1,7 @@
 import random
 import hashlib
 
-LEADING_MASK = "000000"
+LEADING_MASK = "000"
 
 
 class Block:
